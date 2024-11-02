@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: str = os.getenv("GOOGLE_CLIENT_SECRET")
     GOOGLE_REDIRECT_URI: str = os.getenv("GOOGLE_REDIRECT_URI")
     FRONTEND_URL: str = os.getenv("FRONTEND_URL")
+    FACEBOOK_CLIENT_ID: str = os.getenv("FACEBOOK_CLIENT_ID")
+    FACEBOOK_CLIENT_SECRET: str = os.getenv("FACEBOOK_CLIENT_SECRET")
+    FACEBOOK_REDIRECT_URI: str = os.getenv("FACEBOOK_REDIRECT_URI")
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL")
 
     class Config:
         env_file = ".env"

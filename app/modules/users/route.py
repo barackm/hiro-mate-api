@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.modules.users.schema import UserResponse, UsersResponse, UserCreate
 from app.modules.users.service import (
     get_users,
-    create_user,
 )
 from app.db.database import get_db
 
@@ -16,9 +15,9 @@ def all(db: Session = Depends(get_db)):
     return users
 
 
-@router.post("/", response_model=UserResponse)
-def create_new_user(
-    user: UserCreate,
-    db: Session = Depends(get_db),
-):
-    return create_user(db, user)
+# @router.post("/", response_model=UserResponse)
+# def create_new_user(
+#     user: UserCreate,
+#     db: Session = Depends(get_db),
+# ):
+#     return create_user(db, user)
