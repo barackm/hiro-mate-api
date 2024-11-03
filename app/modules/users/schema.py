@@ -10,6 +10,7 @@ class UserCreate(BaseModel):
     surname: Optional[str] = None
     email: Optional[str] = None
     sub: Optional[str] = None
+    provider: Optional[str] = None
 
 
 class UserResponse(UserCreate):

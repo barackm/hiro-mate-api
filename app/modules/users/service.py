@@ -12,54 +12,6 @@ def get_users(db: Session):
     return {"total": total, "data": users}
 
 
-# def create_user(
-#     db: Session,
-#     user_data: UserCreate,
-# ) -> User:
-#     promotion_id = user_data["promotion_id"]
-#     level_id = user_data["level_id"]
-#     time_slot_id = user_data["time_slot_id"]
-
-#     validate_user_does_not_exist(
-#         db, identifier=user_data["email"] if user_data["email"] else user_data["phone"]
-#     )
-
-#     if promotion_id and level_id:
-#         promotion, level, time_slot = validate_enrollment_details(
-#             db, promotion_id, level_id, time_slot_id
-#         )
-#     else:
-#         promotion = level = time_slot = None
-
-#     try:
-#         new_user = create_new_user(db, user_data)
-#         print(f"new_user {new_user}")
-#         if promotion and level:
-#             enrollment_data = {
-#                 "user_id": new_user.id,
-#                 "promotion_id": promotion.id,
-#                 "level_id": level.id,
-#                 "time_slot_id": time_slot.id if time_slot else None,
-#             }
-#             enrollment = create_user_enrollment(db=db, enrollment=enrollment_data)
-
-#         db.commit()
-#         db.refresh(new_user)
-#         if promotion and level:
-#             db.refresh(enrollment)
-
-#         return new_user
-
-#     except HTTPException:
-#         raise
-#     except Exception as e:
-#         db.rollback()
-#         print(e)
-#         raise HTTPException(
-#             status_code=500, detail=f"An unexpected error occurred. {e}"
-#         )
-
-
 def validate_user_does_not_exist(db: Session, identifier: str):
     if get_user_by_email(db, identifier):
         raise HTTPException(
@@ -94,7 +46,6 @@ def get_user_by_email_or_phone_number(db: Session, identifier: str):
 
 
 def create_user_from_google(db: Session, user_data: UserCreate):
-    print("Creating user from Google", user_data)
     user = get_user_by_email(db, user_data["email"])
     if user:
         return user
@@ -105,6 +56,7 @@ def create_user_from_google(db: Session, user_data: UserCreate):
         email=user_data["email"],
         sub=user_data["sub"],
         account_confirmed_at=datetime.now(timezone.utc),
+        provider="google",
     )
 
     db.add(new_user)

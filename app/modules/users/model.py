@@ -17,6 +17,7 @@ class User(Base):
     photo = Column(Text, nullable=True)
     account_confirmed_at = Column(DateTime, nullable=True)
     sub = Column(String(255), nullable=True)
+    provider = Column(String, nullable=False)
     profile_completed_at = Column(DateTime, nullable=True)
     password = Column(Text, nullable=True)
     address = Column(Text, nullable=True)

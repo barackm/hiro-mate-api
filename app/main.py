@@ -8,8 +8,9 @@ from app.modules.time_slots.route import router as time_slot_router
 from app.modules.enrollments.route import router as enrollment_router
 from app.modules.auth.route import router as auth_router
 from starlette.middleware.sessions import SessionMiddleware
+from app.middlewares.auth_middleware import AuthMiddleware
+import os
 
-# from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_limiter import FastAPILimiter
 from fastapi_limiter.depends import RateLimiter
@@ -32,8 +33,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(SessionMiddleware, secret_key="YOUR_SECRET_KEY")
-# app.add_middleware(HTTPSRedirectMiddleware)
+app.add_middleware(SessionMiddleware, secret_key=os.getenv("SECRET_KEY"))
+app.add_middleware(AuthMiddleware)
 
 mapper_registry = registry()
 mapper_registry.configure()
@@ -74,6 +75,7 @@ app.include_router(
     tags=["enrollments"],
     dependencies=[Depends(RateLimiter(times=5, seconds=60))],
 )
+
 app.include_router(
     auth_router,
     prefix="/auth",

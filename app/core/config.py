@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     FACEBOOK_CLIENT_SECRET: str = os.getenv("FACEBOOK_CLIENT_SECRET")
     FACEBOOK_REDIRECT_URI: str = os.getenv("FACEBOOK_REDIRECT_URI")
     FRONTEND_URL: str = os.getenv("FRONTEND_URL")
+    SECRET_KEY: str = os.getenv("SECRET_KEY")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 14
 
     class Config:
         env_file = ".env"
