@@ -6,6 +6,12 @@ from sqlalchemy.orm import sessionmaker
 DATABASE_URL = settings.DATABASE_URL
 
 engine = create_engine(DATABASE_URL)
+print('DB_URL', DATABASE_URL)
+try:
+    with engine.connect() as connection:
+        print("Connected successfully!")
+except Exception as e:
+    print("Connection failed:", e)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
