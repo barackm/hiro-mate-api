@@ -3,8 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from .model import User
 from .schema import UserCreate
-from datetime import datetime
-from ..enrollments.service import create_user_enrollment, validate_enrollment_details
+from datetime import datetime, timezone
 
 
 def get_users(db: Session):
@@ -105,7 +104,7 @@ def create_user_from_google(db: Session, user_data: UserCreate):
         last_name=user_data["last_name"],
         email=user_data["email"],
         sub=user_data["sub"],
-        account_confirmed_at=datetime.now(datetime.timezone.utc),
+        account_confirmed_at=datetime.now(timezone.utc),
     )
 
     db.add(new_user)
