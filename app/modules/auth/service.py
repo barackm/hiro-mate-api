@@ -83,11 +83,10 @@ def refresh_token_service(
 
 
 def verify_access_token(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
+    token: str,
     db: Session = Depends(get_db),
 ):
     try:
-        token = credentials.credentials
         payload = pyjwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
 
         user_id = payload.get("sub")

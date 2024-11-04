@@ -23,6 +23,5 @@ def send_email(subject: str, to_email: str, message: str):
         server.login(smtp_user, smtp_password)
         server.sendmail(smtp_user, to_email, msg.as_string())
         server.quit()
-        print(f"Email sent to {to_email} successfully!")
     except Exception as e:
         print(f"Error sending email: {str(e)}")

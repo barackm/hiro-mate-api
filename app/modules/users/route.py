@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.modules.users.schema import UserResponse, UsersResponse, UserCreate
+from app.modules.users.schema import UsersResponse
 from app.modules.users.service import (
     get_users,
 )
@@ -13,11 +13,3 @@ router = APIRouter()
 def all(db: Session = Depends(get_db)):
     users = get_users(db=db)
     return users
-
-
-# @router.post("/", response_model=UserResponse)
-# def create_new_user(
-#     user: UserCreate,
-#     db: Session = Depends(get_db),
-# ):
-#     return create_user(db, user)

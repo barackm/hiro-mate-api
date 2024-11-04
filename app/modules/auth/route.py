@@ -21,7 +21,6 @@ router = APIRouter()
 @router.get("/login/google")
 async def login_via_google(request: Request):
     redirect_uri = settings.GOOGLE_REDIRECT_URI
-    print(redirect_uri)
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 
@@ -66,7 +65,6 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
         return response
 
     except Exception as e:
-        print("Error during Google callback:", e)
         return {"error": str(e)}
 
 

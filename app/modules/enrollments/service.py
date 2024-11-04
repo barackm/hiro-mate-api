@@ -13,7 +13,6 @@ def create_user_enrollment(
     enrollment: dict,
     can_commit: bool = False,
 ) -> UserEnrollment:
-    print(enrollment)
     user_enrollment = UserEnrollment(
         **enrollment,
         end_date=None,
