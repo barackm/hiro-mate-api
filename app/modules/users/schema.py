@@ -21,6 +21,7 @@ class User(BaseModel):
     created_at: datetime
     updated_at: datetime
     enrollments: List[EnrollmentResponse]
+    status: Optional[str] = "active"
 
     class Config:
         from_attributes = True
@@ -45,7 +46,7 @@ class UserResponse(User):
 
 class UsersResponse(BaseModel):
     total: int
-    data: List[UserResponse]
+    data: List[User]
 
     class Config:
         from_attributes = True
