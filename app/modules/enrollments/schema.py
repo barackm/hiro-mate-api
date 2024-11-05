@@ -33,4 +33,16 @@ class EnrollmentUpdate(BaseModel):
     end_date: Optional[datetime] = None
     status: Optional[str] = None
 
+
+class EnrollmentUpdate(BaseModel):
+    promotion_id: Optional[UUID]
+    level_id: Optional[UUID]
+    time_slot_id: Optional[UUID] = None
+    end_date: Optional[str] = None
+    status: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
 from ..promotions.schema import PromotionResponse

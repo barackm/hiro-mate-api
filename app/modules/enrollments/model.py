@@ -39,11 +39,9 @@ class UserEnrollment(Base):
         onupdate=lambda: datetime.now(timezone.utc),
     )
 
-    user = relationship(
-        "User", back_populates="enrollments", overlaps="users,promotions"
-    )
+    user = relationship("User", back_populates="enrollments", overlaps="promotions")
     promotion = relationship(
-        "Promotion", back_populates="enrollments", overlaps="users,promotions"
+        "Promotion", back_populates="enrollments", overlaps="promotions"
     )
     time_slot = relationship(
         "TimeSlot", back_populates="enrollments", overlaps="time_slots"

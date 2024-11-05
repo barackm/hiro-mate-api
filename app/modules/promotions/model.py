@@ -28,12 +28,12 @@ class Promotion(Base):
     )
 
     program = relationship("Program", back_populates="promotions")
-    enrollments = relationship(
-        "UserEnrollment", back_populates="promotion", overlaps="promotions,users"
-    )
     users = relationship(
         "User",
         secondary="user_enrollments",
         back_populates="promotions",
-        overlaps="enrollments",
+        overlaps="enrollments,user,promotion",
+    )
+    enrollments = relationship(
+        "UserEnrollment", back_populates="promotion", overlaps="users"
     )
